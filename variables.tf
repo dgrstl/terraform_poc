@@ -2,6 +2,33 @@ variable "ami_id" {
   default = "ami-0791657d"
 }
 
+# Packer generated AMI for Consul Server
+variable "consul_ami" {
+  type = "map"
+
+  default = {
+    us-east-1 = ""
+  }
+}
+
+# Packer generated AMI for Vault and Consul client
+variable "ami_vault_consul" {
+  type = "map"
+
+  default = {
+    us-east-1 = "ami-8b6b9bf1"
+  }
+}
+
+# Packer generated AMI for Nomad and Consul client
+variable "ami_nomad_consul" {
+  type = "map"
+
+  default = {
+    us-east-1 = "ami-3b6d9d41"
+  }
+}
+
 variable "aws_region" {
   default = "us-east-1"
 }

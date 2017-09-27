@@ -1,0 +1,12 @@
+{
+  "aws_region":            "us-east-1",
+  "vault_module_version":  "v0.0.2",
+  "vault_version":         "0.8.2",
+  "consul_module_version": "v0.0.3",
+  "consul_version":        "0.9.3",
+  "nomad_module_version":  "v0.0.2",
+  "nomad_version":         "0.6.3",
+  "ca_public_key_path":    "./tls/rootCA.pem",
+  "tls_public_key_path":   "./tls/vault.crt.pem",
+  "tls_private_key_path":  "./tls/vault.key.pem"
+}
