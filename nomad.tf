@@ -3,9 +3,6 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "nomad_servers" {
-  # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
-  # to a specific version of the modules, such as the following example:
-  # source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-cluster?ref=v0.0.1"
   source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-cluster?ref=v0.0.2"
 
   cluster_name  = "${var.nomad_cluster_name}-server"
@@ -16,7 +13,7 @@ module "nomad_servers" {
   max_size         = "${var.num_nomad_servers}"
   desired_capacity = "${var.num_nomad_servers}"
 
-  ami_id    = "${var.ami_id}"
+  ami_id    = "${lookup(var.nomad_consul_ami, var.aws_region)}"
   user_data = "${data.template_file.user_data_nomad_server.rendered}"
 
   vpc_id     = "${data.aws_vpc.default.id}"
@@ -62,9 +59,6 @@ data "template_file" "user_data_nomad_server" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "nomad_clients" {
-  # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
-  # to a specific version of the modules, such as the following example:
-  # source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-cluster?ref=v0.0.1"
   source = "git::git@github.com:hashicorp/terraform-aws-nomad.git//modules/nomad-cluster?ref=v0.0.2"
 
   cluster_name  = "${var.nomad_cluster_name}-client"
@@ -77,9 +71,8 @@ module "nomad_clients" {
   max_size         = "${var.num_nomad_clients}"
   desired_capacity = "${var.num_nomad_clients}"
 
-  ami_id    = "${var.ami_id}"
-  user_data = "${data.template_file.user_data_nomad_client.rendered}"
-
+  ami_id     = "${lookup(var.nomad_consul_ami, var.aws_region)}"
+  user_data  = "${data.template_file.user_data_nomad_client.rendered}"
   vpc_id     = "${data.aws_vpc.default.id}"
   subnet_ids = "${data.aws_subnet_ids.default.ids}"
 

@@ -5,15 +5,15 @@
 module "consul_servers" {
   source = "git::git@github.com:hashicorp/terraform-aws-consul.git//modules/consul-cluster?ref=v0.0.3"
 
-  cluster_name  = "${var.consul_cluster_name}-server"
-  cluster_size  = "${var.num_consul_servers}"
-  instance_type = "t2.micro"
+  cluster_name    = "${var.consul_cluster_name}-server"
+  cluster_size    = "${var.num_consul_servers}"
+  instance_type   = "t2.micro"
 
   # The EC2 Instances will use these tags to automatically discover each other and form a cluster
   cluster_tag_key   = "${var.cluster_tag_key}"
   cluster_tag_value = "${var.consul_cluster_name}"
 
-  ami_id    = "${var.ami_id}"
+  ami_id    = "${lookup(var.consul_ami, var.aws_region)}"
   user_data = "${data.template_file.user_data_consul_server.rendered}"
 
   vpc_id     = "${data.aws_vpc.default.id}"

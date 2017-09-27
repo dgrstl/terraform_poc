@@ -7,25 +7,25 @@ variable "consul_ami" {
   type = "map"
 
   default = {
-    us-east-1 = ""
+    us-east-1 = "ami-9653a3ec"
   }
 }
 
 # Packer generated AMI for Vault and Consul client
-variable "ami_vault_consul" {
+variable "vault_consul_ami" {
   type = "map"
 
   default = {
-    us-east-1 = "ami-8b6b9bf1"
+    us-east-1 = ""
   }
 }
 
 # Packer generated AMI for Nomad and Consul client
-variable "ami_nomad_consul" {
+variable "nomad_consul_ami" {
   type = "map"
 
   default = {
-    us-east-1 = "ami-3b6d9d41"
+    us-east-1 = "ami-8d54a4f7"
   }
 }
 
@@ -35,12 +35,12 @@ variable "aws_region" {
 
 variable "nomad_cluster_name" {
   description = "What to name the Nomad cluster and all of its associated resources"
-  default     = "nomad-example"
+  default     = "nomad"
 }
 
 variable "consul_cluster_name" {
   description = "What to name the Consul cluster and all of its associated resources"
-  default     = "consul-example"
+  default     = "consul"
 }
 
 variable "num_nomad_servers" {
@@ -60,7 +60,7 @@ variable "num_consul_servers" {
 
 variable "cluster_tag_key" {
   description = "The tag the Consul EC2 Instances will look for to automatically discover each other and form a cluster."
-  default     = "consul-servers"
+  default     = "consul-cluster"
 }
 
 variable "ssh_public_key" {

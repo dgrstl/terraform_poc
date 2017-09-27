@@ -1,3 +1,15 @@
+output "num_servers" {
+  value = "${module.consul_servers.cluster_size}"
+}
+
+output "consul_servers_cluster_tag_key" {
+  value = "${module.consul_servers.cluster_tag_key}"
+}
+
+output "consul_servers_cluster_tag_value" {
+  value = "${module.consul_servers.cluster_tag_value}"
+}
+
 output "num_nomad_servers" {
   value = "${module.nomad_servers.cluster_size}"
 }
