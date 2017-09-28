@@ -16,7 +16,7 @@ variable "vault_consul_ami" {
   type = "map"
 
   default = {
-    us-east-1 = ""
+    us-east-1 = "ami-eb847791"
   }
 }
 
@@ -58,7 +58,7 @@ variable "num_consul_servers" {
   default     = 3
 }
 
-variable "cluster_tag_key" {
+variable "consul_cluster_tag_key" {
   description = "The tag the Consul EC2 Instances will look for to automatically discover each other and form a cluster."
   default     = "consul-cluster"
 }
@@ -69,4 +69,29 @@ variable "ssh_public_key" {
 
 variable "ssh_key_name" {
   default = "dgrstl"
+}
+
+variable "s3_bucket_name" {
+  description = "The name of an S3 bucket to create and use as a storage backend. Note: S3 bucket names must be *globally* unique."
+  default     = "dgrstl_hashi_poc"
+}
+
+variable "vault_cluster_name" {
+  description = "What to name the Vault server cluster and all of its associated resources"
+  default     = "vault-example"
+}
+
+variable "vault_cluster_size" {
+  description = "The number of Vault server nodes to deploy. We strongly recommend using 3 or 5."
+  default     = 3
+}
+
+variable "vault_instance_type" {
+  description = "The type of EC2 Instance to run in the Vault ASG"
+  default     = "t2.micro"
+}
+
+variable "force_destroy_s3_bucket" {
+  description = "If you set this to true, when you run terraform destroy, this tells Terraform to delete all the objects in the S3 bucket used for backend storage. You should NOT set this to true in production or you risk losing all your data! This property is only here so automated tests of this module can clean up after themselves."
+  default     = false
 }

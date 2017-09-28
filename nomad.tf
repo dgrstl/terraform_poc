@@ -49,7 +49,7 @@ data "template_file" "user_data_nomad_server" {
 
   vars {
     num_servers       = "${var.num_nomad_servers}"
-    cluster_tag_key   = "${var.cluster_tag_key}"
+    cluster_tag_key   = "${var.consul_cluster_tag_key}"
     cluster_tag_value = "${var.consul_cluster_name}"
   }
 }
@@ -105,7 +105,7 @@ data "template_file" "user_data_nomad_client" {
   template = "${file("${path.module}/templates/user-data-nomad-client.sh")}"
 
   vars {
-    cluster_tag_key   = "${var.cluster_tag_key}"
+    cluster_tag_key   = "${var.consul_cluster_tag_key}"
     cluster_tag_value = "${var.consul_cluster_name}"
   }
 }

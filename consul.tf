@@ -10,7 +10,7 @@ module "consul_servers" {
   instance_type   = "t2.micro"
 
   # The EC2 Instances will use these tags to automatically discover each other and form a cluster
-  cluster_tag_key   = "${var.cluster_tag_key}"
+  cluster_tag_key   = "${var.consul_cluster_tag_key}"
   cluster_tag_value = "${var.consul_cluster_name}"
 
   ami_id    = "${lookup(var.consul_ami, var.aws_region)}"
@@ -36,7 +36,7 @@ data "template_file" "user_data_consul_server" {
   template = "${file("${path.module}/templates/user-data-consul-server.sh")}"
 
   vars {
-    cluster_tag_key   = "${var.cluster_tag_key}"
+    cluster_tag_key   = "${var.consul_cluster_tag_key}"
     cluster_tag_value = "${var.consul_cluster_name}"
   }
 }
